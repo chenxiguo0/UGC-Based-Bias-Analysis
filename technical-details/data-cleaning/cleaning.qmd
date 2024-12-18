@@ -1,0 +1,87 @@
+---
+title: "Data Cleaning"
+bibliography: ../../assets/references.bib
+output: html_document
+---
+
+# Overview
+
+This section involves preprocessing Reddit data to convert it into a cleaned and structured format suitable for further analysis. Initially, the raw Reddit data, collected through the Reddit API, was in JSON format. In this stage, the JSON data was converted into a CSV file to facilitate easier manipulation and analysis. The cleaned data is processed to remove unwanted characters, irrelevant information, and noise from the text, leaving a dataset that is ready for following NLP applications.
+
+The cleaning goal is to ensure the text is standardized, with unnecessary elements removed, making the data more consistent and ready for model training. Methods
+
+# Methods
+
+To transform and clean the raw data, the following key methods were employed:
+
+1.  **Conversion from JSON to CSV**: The raw data in JSON format was converted into a CSV file to simplify data handling using pandas, a common library for data manipulation in Python.
+
+2.  **Text Cleaning**: This involved several steps, including removing special characters, URLs, mentions, and hashtags. Emojis were also removed, and the text was converted to lowercase.
+
+3.  **Language Filtering**: Non-English words were filtered out to ensure that the data remained relevant for English-language analysis.
+
+4.  **Tokenization and Lemmatization**: The text was tokenized into words, and stop words were removed. The remaining words were lemmatized to their base forms to ensure consistency.
+
+5.  **Removing Duplicates**: Any duplicate rows were removed based on the cleaned text to prevent redundancy.Cleaning Process
+
+# Cleaning Process
+
+-   **Data Conversion**: The json raw data was converted into a CSV file using pandas. This step was necessary because CSV files are easier to manipulate and analyze, especially with large datasets. Using CSV allows the cleaning process to take advantage of pandas' rich feature set for data handling, such as filtering, grouping, and transformation, which makes subsequent analysis easier. Additionally, CSV files are widely used for data sharing and are compatible with many data processing tools.
+
+-   **Text Preprocessing**:
+
+    -   **Whitespace Normalization**: The first cleaning step in the text processing pipeline involved removing excess whitespace from the text using regular expressions (`re.sub`). Multiple consecutive spaces, newlines, and tabs were replaced with a single space to standardize spacing.
+
+    -   **Special Character Removal**: Special symbols, except for commas, periods, hyphens, and word characters, were removed. This step eliminates characters that do not provide meaningful information for text analysis.
+
+    -   **Removing URLs and Mentions**: URLs (http links) and user mentions (e.g., \@username) were removed, as they do not contribute to the textual analysis and can introduce noise.
+
+    -   **Hashtags**: All hashtags (e.g., #aiart) were removed since they do not add significant value in the context of NLP analysis.
+
+    -   **Hyphen Removal**: Hyphens were removed to prevent unwanted concatenation of words, as they may interfere with tokenization.
+
+    -   **Emoji Removal**: Emojis were removed using the `emoji` library, as they do not typically contribute to meaningful textual analysis.
+
+    -   **Lowercasing**: The entire text was converted to lowercase to ensure that words such as "Libertarian" and "libertarian" were treated as the same word.
+
+    -   **Double Quote Removal**: All double quotes were removed to avoid text distortions.
+
+    -   **Trimming**: Any text that started and ended with quotes was cleaned by removing the quotes to normalize the text further.
+
+-   **Language Filtering**: After cleaning the text, the next step involved filtering out non-English words. This was achieved by using regular expressions to find words that contain only English letters (A-Z). Any non-English words were discarded, ensuring that the data remained relevant for English-language analysis.
+
+-   **Stopword Removal and Lemmatization**:
+
+    -   **Stopwords Removal**: A list of common stopwords in English (such as "the", "a", "and") was used to filter out non-essential words that do not contribute to the meaning of the text.
+
+    -   **Lemmatization**: Remaining words were lemmatized using NLTK's WordNet lemmatizer, which reduces words to their base or root form (e.g., "running" becomes "run"). This ensures that similar words in different forms (e.g., "run", "running", "ran") are treated as a single token, which improves the quality of any subsequent analysis.
+
+-   **Removing Duplicates**: The final step in cleaning the data was removing duplicate rows based on the 'text' column. This ensures that repeated content is eliminated, and the dataset contains unique entries, making the data more useful for modeling and analysis.
+
+-   **Saving Cleaned Data**: After cleaning the text, the processed data was saved to a new CSV file, which contains the cleaned data in a standardized and structured format, ready for further analysis.
+
+# Conclusion
+
+## Key Insights
+
+1.  **Dataset Summary:**
+
+    -   **Rows**: The cleaned dataset contains 34,351 unique rows and 6 columns.
+    -   **Numerical Variables:** The dataset includes depth and score.
+    -   **Categorical Variables:** The dataset is categorized by subreddit, type (comment, hot submission, or controversial submission).
+
+2.  **Cleaned Dataset Sample:**
+
+    | subreddit   | id      | type           | depth | score | time    | text                                              |
+    |----------|---------|---------|---------|---------|---------|----------------------|
+    | Libertarian | 1hf706u | submission_hot | 0     | 100   | 2024/12 | road serfdom new libertarian economics dad let... |
+    | Libertarian | m29svuv | comment        | 1     | 1     | 2024/12 | anything fredrich bastiat also good think stat... |
+    | Libertarian | m2a5co6 | comment        | 2     | 1     | 2024/12 | libertarian arent exclusively anarchist           |
+    | Libertarian | m2a694w | comment        | 3     | 1     | 2024/12 | true like socialist communist always saying fi... |
+    | Libertarian | m29bopi | comment        | 1     | 7     | 2024/12 | yeah good favorite always recommend get starte... |
+
+## Data Resources
+
+For all the clean data used in this project, please access [5000 Final Project Processed Data](https://drive.google.com/drive/folders/1bQEzAYXcKR5Emn4FRmZiVDiXWgS3gAoJ?usp=drive_link).
+
+# 

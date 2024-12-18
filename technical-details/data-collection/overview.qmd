@@ -1,12 +1,13 @@
+---
+title: "Data Collection"
+bibliography: ../../assets/references.bib
+output: html_document
+---
+
 # Overview
 
-In this section, provide a high-level overview for technical staff, summarizing the key tasks and processes carried out here. Include the following elements:
+To collect online texts from individuals with varying political leanings, this project utilized the Reddit API to scrape text data as test set from Reddit, an American [social news](https://en.wikipedia.org/wiki/Social_news "Social news") [aggregation](https://en.wikipedia.org/wiki/News_aggregator "News aggregator"), [content rating](https://en.wikipedia.org/wiki/Review_site#Rating_site "Review site"), and [forum](https://en.wikipedia.org/wiki/Internet_forum "Internet forum") social network[@reddit2024].
 
-- **Goals**: Clearly define the purpose of the tasks or analysis being conducted.
-- **Motivation**: Explain the reasoning behind the work, such as solving a specific problem, improving a system, or optimizing performance.
-- **Objectives**: Outline the specific outcomes you aim to achieve, whether it's implementing a solution, analyzing data, or building a model.
+The data collection process began by identifying relevant subreddits (user-created boards organized by topic) through keyword searches. Next, both "hot" and "controversial" submissions(posts) from these subreddits were retrieved, along with their associated comments, to complete the raw data collection. For training set, this projects utilized labelled datasets from Kaggle.
 
-This overview should give technical staff a clear understanding of the context and importance of the work, while guiding them on what to focus on in the details that follow.
-
-
-
+The purpose of this data collection is to obtain a suitable amount and type of text data for subsequent cleaning, analysis, and modeling.

@@ -1,0 +1,191 @@
+---
+title: "Supervised Learning"
+bibliography: ../../assets/references.bib
+output: html_document
+---
+
+# Overview
+
+Supervised learning is a common machine learning approach where models are trained on labeled data (containing input features and target variables) to make predictions on new, unlabeled data. It works by continuously adjusting model parameters to minimize the difference between predicted results and true labels.
+
+In this project, two models were selected: a Decision Tree classifier and a Random Forest regressor. The Decision Tree predicts the political leaning of comment authors (Conservative/Liberal), while the Random Forest predicts the toxicity level of comments (continuous values from 0-1).
+
+# Decision Tree Classification
+
+A Decision Tree is a tree-structured classification model that partitions data into different categories through a series of conditional decisions. Starting from the root node, data samples travel down branches based on feature value conditions until reaching leaf nodes that determine the classification outcome.
+
+#### Reasons for Choosing DT:
+
+-   Strong interpretability, easy to understand and visualize
+
+-   Can handle non-linear relationships and categorical features
+
+-   Fast training speed and computational efficiency
+
+-   Suitable for binary classification problems
+
+-   Robust to outliers
+
+## Training and Testing Strategy
+
+**Split Methods:**
+
+-   Used **GridSearchCV** with 5-fold cross-validation for hyperparameter optimization.
+
+-   Performed an additional 5-fold cross-validation on the best model for performance evaluation.
+
+-   Applied to TF-IDF vectorized text data with **max_features=5000**.
+
+**Dataset Proportions:**
+
+-   Both **GridSearchCV** and final cross-validation used 5-fold splits:
+
+    -   **Training**: 80% of data.
+
+    -   **Testing/Validation**: 20% of data.
+
+## Model Evaluation Metrics
+
+| Metric    | Conservative | Liberal | Macro avg | Weighted avg |
+|-----------|:-------------|:--------|:----------|:-------------|
+| Precision | 0.94         | 0.74    | 0.84      | 0.82         |
+| Recall    | 0.48         | 0.98    | 0.73      | 0.78         |
+| F1-score  | 0.63         | 0.84    | 0.74      | 0.76         |
+| Support   | 957          | 1471    | 2428      | 2428         |
+| Accuracy  | 0.78         |         |           |              |
+
+## Results
+
+1.  **Model Performance Summary**:
+
+    -   Best parameters: max_depth=15, criterion='gini'
+
+    -   Mean cross-validation accuracy: 65.40%
+
+    -   Training set accuracy: 78.21%
+
+    -   Better performance on Liberal predictions (98% recall)
+
+2.  **Visualizations**: Include visualizations of results (e.g., ROC curves, feature importance plots). ![](../../image/decision_tree.png) ![](../../image/lean.png) ![](../../image/score_by_lean.png)
+
+# Random Forest Regression
+
+## Overview
+
+Random Forest is an ensemble learning method composed of multiple decision trees. Each tree is trained on randomly sampled data and features, with final predictions made through averaging or voting mechanisms.
+
+#### Reasons for Choosing RF:
+
+-   Strong generalization capability
+
+-   Resistant to overfitting
+
+-   Can handle high-dimensional data
+
+-   Suitable for continuous target variables
+
+-   Good robustness against noise
+
+## Training and Testing Strategy
+
+**Split Methods:**
+
+-   Used **GridSearchCV** with 3-fold cross-validation for hyperparameter tuning.
+
+-   Implemented **5-fold cross-validation** with **KFold** for final model evaluation.
+
+-   Both methods applied to TF-IDF vectorized, cleaned data.
+
+**Dataset Proportions:**
+
+-   **GridSearchCV**: 67% training, 33% validation in each fold.
+
+-   **Final KFold**: 80% training, 20% testing in each fold.
+
+-   Random shuffling enabled (**random_state=5000**) for reproducibility.
+
+## Model Evaluation Metrics
+
+| Metric                         | Value  |
+|--------------------------------|--------|
+| Mean Squared Error (MSE)       | 0.0029 |
+| Root Mean Squared Error (RMSE) | 0.0542 |
+| Mean Absolute Error (MAE)      | 0.0326 |
+| R-squared (R²)                 | 0.9088 |
+| Explained Variance Score       | 0.9089 |
+
+-   **MSE** and **RMSE** indicate low prediction errors.
+
+-   **MAE** shows small average deviations between predictions and actual values.
+
+-   **R²** and **Explained Variance Score** suggest the model explains over 90% of the variance in the data.
+
+![](../../image/pairplot.png)
+
+## Results
+
+-   Best parameters: n_estimators=500, max_features='sqrt'
+
+-   Cross-validation MSE: 0.0195
+
+-   Training set MSE: 0.0029
+
+-   R-squared score: 0.9088
+
+| Political Leaning | toxicity Mean | toxicity Std | toxicity Max | length Mean | length Std | score Mean |
+|-------------------|---------------|--------------|--------------|-------------|------------|------------|
+| Conservative      | 0.107         | 0.153        | 0.851        | 291.410     | 358.168    | 16.531     |
+| Liberal           | 0.118         | 0.170        | 0.936        | 131.705     | 213.552    | 37.049     |
+
+![](../../image/toxicity.png) ![](../../image/correlation_matrix.png)
+
+# Conclusion
+
+## **Visualization**
+
+-   Present key insights using charts and visualizations (e.g., Matplotlib, Seaborn, Plotly).
+-   Ensure all visualizations are well-labeled and easy to interpret.
+
+![](../../image/toxicity_by_topics.png)
+
+Topics are predominantly focused on abortion (69.3%), politics (9.7%), guns (8.3%), and climate (7.6%). The political lean of posts is heavily Liberal (95.7%), with only 4.3% of posts labeled as Conservative.
+
+![](../../image/toxicity_by_lean.png) ![](../../image/toxicity_by_lean_topics.png)
+
+## ![](../../image/text_length_toxicity_by_lean.png) ![](../../image/toxicity_trends.png)
+
+## **Key Insights**
+
+1.  **Appropriate Model Selection:**
+
+    -   Decision Tree is suitable for binary political leaning classification.
+
+    -   Random Forest is effective for toxicity level regression prediction.
+
+2.  **Prediction Performance:**
+
+    -   Decision Tree performs better in predicting Liberal leanings.
+
+    -   Random Forest achieves excellent regression performance (R² \> 0.9).
+
+3.  **Model Characteristics:**
+
+    -   Decision Tree shows some overfitting, with training accuracy significantly higher than validation accuracy.
+
+    -   Random Forest demonstrates superior generalization ability.
+
+4.  **Room for Improvement:**
+
+    -   Explore ensemble methods to enhance Decision Tree performance.
+
+    -   Consider additional feature engineering to improve overall model performance.
+
+5.  **Final Dataset Sample:**
+
+| subreddit   | id      | type           | depth | score | time    | text                                              | nmf_topic | dt_lean      | rf_toxicity | text_length | log_text_length |
+|-------------|---------|----------------|-------|-------|---------|---------------------------------------------------|-----------|--------------|-------------|-------------|-----------------|
+| Libertarian | 1hf706u | submission_hot | 0     | 100   | 2024/12 | road serfdom new libertarian economic let borr... | abortion  | Conservative | 0.041974    | 109         | 4.700480        |
+| Libertarian | m29svuv | comment        | 1     | 1     | 2024/12 | fredrich bastiat also good actually make funct... | abortion  | Liberal      | 0.148867    | 73          | 4.304065        |
+| Libertarian | m2a5co6 | comment        | 2     | 1     | 2024/12 | libertarian exclusively anarchist                 | abortion  | Conservative | 0.088044    | 33          | 3.526361        |
+| Libertarian | m2a694w | comment        | 3     | 1     | 2024/12 | true socialist communist always say fix ideolo... | abortion  | Conservative | 0.059692    | 171         | 5.147494        |
+| Libertarian | m29bopi | comment        | 1     | 7     | 2024/12 | good favorite always recommend start revolutio... | abortion  | Liberal      | 0.013902    | 64          | 4.174387        |

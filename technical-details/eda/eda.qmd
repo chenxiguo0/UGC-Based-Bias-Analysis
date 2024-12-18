@@ -1,0 +1,72 @@
+---
+title: "Exploratory Data Analysis"
+bibliography: ../../assets/references.bib
+output: html_document
+---
+
+# Data Pre-Processing
+
+**New Row Added**:
+
+-   "text_length" was added for the diversity and richness of the subsequent analysis.
+
+**Normalization**:
+
+-   Appliec Log-Transform to text length and score for balanced visualization.
+
+**Skewness and Kurtosis Description**:
+
+-   **Depth**:
+
+    -   Skewness: 0.805 (moderate positive skew, meaning most comments are at shallow levels with few at deeper levels).
+
+    -   Kurtosis: 0.055 (flat distribution, with no significant outliers or extreme values).
+
+```{=html}
+<!-- -->
+```
+-   **Score**:
+
+    -   Skewness: 59.793 (strong positive skew, indicating most posts/comments have low scores, but a few have very high scores).
+
+    -   Kurtosis: 4831.850 (highly leptokurtic, with heavy tails and many extreme values, showing a large number of posts with high scores).
+
+-   **Text Length**:
+
+    -   Skewness: 6.563 (strong positive skew, meaning most texts are short, with a few being much longer).
+
+    -   Kurtosis: 78.743 (heavy tails, with a small number of very long texts compared to the majority of shorter ones).
+
+**Dataset Sample**:
+
+| subreddit   | id      | type           | depth | score | time    | text                                              | text_length |
+|----------|---------|------------|------|------|---------|----------------|----------|
+| Libertarian | 1hf706u | submission_hot | 0     | 100   | 2024/12 | road serfdom new libertarian economic let borr... | 109         |
+| Libertarian | m29svuv | comment        | 1     | 1     | 2024/12 | fredrich bastiat also good actually make funct... | 73          |
+| Libertarian | m2a5co6 | comment        | 2     | 1     | 2024/12 | libertarian exclusively anarchist                 | 33          |
+| Libertarian | m2a694w | comment        | 3     | 1     | 2024/12 | true socialist communist always say fix ideolo... | 171         |
+| Libertarian | m29bopi | comment        | 1     | 7     | 2024/12 | good favorite always recommend start revolutio... | 64          |
+
+# Univariate Analysis
+
+![](../../image/numerical.png)
+
+![](../../image/logged_score_distribution.png)
+
+![](../../image/top_10_subreddits.png)
+
+# Bivariate Analysis
+
+![](../../image/text_lenth_vs_score.png)
+
+![](../../image/correlation_matrix_eda.png)
+
+# Conclusion
+
+## **Key Insights**
+
+-   **Summary of EDA Findings**:
+-   Highlight the main takeaways from the EDA process (key trends, patterns, data quality issues).
+-   **Implications for Modeling**:
+-   Discuss how your EDA informs the next steps in your project (e.g., feature selection, data transformations).
+-   Outline any further data cleaning or preparation required before moving into modeling.

@@ -1,19 +1,33 @@
-# Summary
+# Conclusion
 
-This section should be written for a **technical audience**, focusing on detailed analysis, factual reporting, and clear presentation of data. The following serves as a guide, but feel free to adjust as needed.
+## Key Insights for Test Set
+
+1.  **Total Posts and Comments:**
+
+    The collected data contains 59,724 entries, 59,032 comments, and 692 posts categorized as "hot" (347) or "controversial" (345).
+
+2.  **Comment Depth:**
+
+    The comment depth ranges from 0 to 10, where 0 represents the post itself, 1 refers to first-level comments (direct comments on the post), 2 represents second-level comments (replies to the first-level comments), 3 indicates third-level comments (replies to the second-level comments), and so on. The majority of comments, approximately 20,000, are concentrated at depths 2 to 4.
+
+3.  **Score Range**:
+
+    The score ranges from -177 to 57,021, with a mean of 35.95. This wide range suggests that while most comments have low scores, some posts and comments have garnered significant attention or upvotes. While most comments and submissions have low scores (below 10), there are a few with exceptionally high scores, which likely indicates viral or highly upvoted content.
+
+## Data Resources for Training Sets
+
+For training sets, this project utilized two labelled datasets from Kaggle.
+
+-   training set for Decision Tree binary classification (liberal or conservative)
+
+    [Liberal vs Conservative Title classification](https://www.kaggle.com/code/noname666666/liberal-vs-conservative-title-classification)
+
+-   training set for Random Forest regression (value between 0 and 1)
+
+    [Jigsaw Unintended Bias in Toxicity Classification](https://www.kaggle.com/c/jigsaw-unintended-bias-in-toxicity-classification/data)
+
+For all the raw data used in this project, please access [5000 Final Project Raw Data](https://drive.google.com/drive/folders/1J5KdPo9VpLo9i6jZZZUr1LRZvcaZNddT?usp=drive_link).
 
 ## Challenges
 
-- Discuss any technical challenges faced during the project, such as data limitations, computational issues, or obstacles encountered during analysis.
-- Explain unexpected results and their technical implications.
-- Identify areas for future work, including potential optimizations, further analysis, or scaling solutions.
-
-## Benchmarks
-
-- Compare your findings to relevant research, industry benchmarks, or intuitive expectations, if applicable.
-
-## Conclusion and Future Steps
-
-- Summarize the key technical points and outcomes of the project.
-- Suggest potential improvements or refinements to this part of the project.
-- Based on the results, provide actionable recommendations for further research or optimization efforts.
+Due to the nature of web scraping with the Reddit API, the datasets collected in this project may not be fully replicable. This is because the data retrieved depends on factors such as time, post popularity, and various dynamic elements within the Reddit platform. Since the Reddit API does not provide a fixed method for data collection, the exact results may vary each time the code is run, making it difficult to reproduce the exact same dataset consistently.

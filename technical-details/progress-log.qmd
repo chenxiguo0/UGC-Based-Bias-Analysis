@@ -8,11 +8,11 @@ If you are working as a team, at the end, you can duplicate the project and add 
 
 ## To-do
 
-* [ ] Explore possible topics by brainstorming with GPT 
-* [ ] write a technical methods sections for K-means
-* [ ] write a technical methods sections for PCA
+-   [ ] Explore possible topics by brainstorming with GPT
+-   [ ] write a technical methods sections for K-means
+-   [ ] write a technical methods sections for PCA
 
-... etc 
+... etc
 
 ## Member-1:
 
@@ -22,16 +22,13 @@ Also, describe a log of their project roles.
 
 **Weekly project contribution log:**
 
+**T: 10-15-2024**
 
-**T: 10-15-2024** 
+-   [x] Coordinate with team member to set up weekly meeting time
 
-* [x] Coordinate with team member to set up weekly meeting time 
+**M: 10-14-2024**
 
-
-**M: 10-14-2024** 
-
-* [x] Do a first draft of the project landing page 
-
+-   [x] Do a first draft of the project landing page
 
 ## Member-2
 
@@ -41,7 +38,6 @@ Also, describe a log of their project roles.
 
 **Weekly project contribution log:**
 
+**W: 10-16-2024**
 
-**W: 10-16-2024** 
-
-* [x] Attend first group meeting
+-   [x] Attend first group meeting

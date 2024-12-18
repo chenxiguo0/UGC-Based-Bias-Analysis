@@ -1,5 +1,65 @@
 # Methods
 
-In this section, provide an overview summary of the methods used on this page. This should include a brief description of the key techniques, algorithms, tools, or processes employed in your work. Make sure to outline the approach taken for data collection, processing, analysis, or any specific technical steps relevant to the project.
+## Web Scraping
 
-If you are developing a package, include a reference to the relevant documentation and provide a link here for easy access. Ensure that the package details are properly documented in its dedicated section, but mentioned and connected here for a complete understanding of the methods used in this project.
+This project uses **Reddit API** with the Python library `praw` (Python Reddit API Wrapper) to scrape posts and comments from relevant subreddits. The goal is to collect sufficient and high-quality textual data to support downstream analysis and modeling.
+
+**Key Features of in the scraping:**
+
+-   **Reddit API Integration**: The scraping uses Reddit API credentials (`client_id`, `client_secret`, and `user_agent`) to authenticate and access Reddit data.
+
+```{=html}
+<!-- -->
+```
+-   **Subreddit Selection**\
+    Relevant subreddits are identified using a list of predefined keywords (e.g., "libertarian", "climate change", "abortion"). Subreddits are ranked by subscriber count to ensure popular and active communities are prioritized. Unrelated subreddits are filtered out manually, and a few valuable subreddits missed in the search process are added.
+
+-   **Data Retrieval**
+
+    A `seen_post_ids` set ensures that duplicate posts are skipped and posts with the "meme" flair are excluded to focus on textual data.
+
+-   **Filtering and Processing**
+
+    For each post, top-level comments and their replies were retrieved to capture user discussions and interactions.
+
+-   **Storage**\
+    The scraped data, including posts and comments, is saved in JSON and CSV formats for easy access and further processing.
+
+For more detailed usage of this API, please refer to the [Reddit API Documentation](https://www.reddit.com/dev/api/oauth).
+
+## Collection Process
+
+1.  **Keyword-Based Subreddit Search**
+
+    -   The predefined list of keywords (e.g., “libertarian”, “tax”, “racism”) is used to search for subreddits using Reddit's API.
+
+    -   For each keyword, subreddits are fetched, and the top 4 based on subscriber count are selected.
+
+2.  **Subreddit Filtering**
+
+    -   Subreddits with less than 10,000 subscribers are excluded to focus on larger, more active communities.
+
+    -   Unrelated subreddits are manually removed, and additional high-value subreddits are added.
+
+3.  **Post and Comment Scraping**\
+    For each subreddit:
+
+    -   **Hot and Controversial Posts**: Top 10 posts from each category are collected.
+
+    -   **Post Filtering**: Posts with the "meme" flair are skipped.
+
+    -   **Comments**:
+
+        -   10 comments per post were collected, sorted by the number of replies, ensuring high engagement
+
+        -   10 replies per comment were collected to maintain data manageability and diversity.
+
+4.  **Data Processing and Storage**
+
+    -   Each post and comment is organized into a structured format, including:
+
+        -   Post details: `subreddit`, `post_id`, `title`, `text`, `score`, `created_utc`.
+
+        -   Comment details: `comment_id`, `body`, `score`, `depth`, `num_replies`, `created_utc`.
+
+    -   Data is saved as a **JSON file** for raw text storage and a **CSV file** for structured analysis.
