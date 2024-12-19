@@ -8,11 +8,11 @@ output: html_document
 
 **New Row Added**:
 
--   "text_length" was added for the diversity and richness of the subsequent analysis.
+-   "text_length", representing the number of characters in the "text" column for each row, was added for the diversity and richness of the subsequent analysis.
 
 **Normalization**:
 
--   Appliec Log-Transform to text length and score for balanced visualization.
+-   Applied Log-Transform to text length and score for balanced visualization.
 
 **Skewness and Kurtosis Description**:
 
@@ -22,9 +22,6 @@ output: html_document
 
     -   Kurtosis: 0.055 (flat distribution, with no significant outliers or extreme values).
 
-```{=html}
-<!-- -->
-```
 -   **Score**:
 
     -   Skewness: 59.793 (strong positive skew, indicating most posts/comments have low scores, but a few have very high scores).
@@ -40,7 +37,7 @@ output: html_document
 **Dataset Sample**:
 
 | subreddit   | id      | type           | depth | score | time    | text                                              | text_length |
-|----------|---------|------------|------|------|---------|----------------|----------|
+|-------------|---------|----------------|-------|-------|---------|---------------------------------------------------|-------------|
 | Libertarian | 1hf706u | submission_hot | 0     | 100   | 2024/12 | road serfdom new libertarian economic let borr... | 109         |
 | Libertarian | m29svuv | comment        | 1     | 1     | 2024/12 | fredrich bastiat also good actually make funct... | 73          |
 | Libertarian | m2a5co6 | comment        | 2     | 1     | 2024/12 | libertarian exclusively anarchist                 | 33          |
@@ -51,22 +48,90 @@ output: html_document
 
 ![](../../image/numerical.png)
 
+The text length distribution shows a highly right-skewed pattern, with the majority of texts being relatively short (under 1000 characters).
+
+The comment depth visualization reveals an oscillating pattern with discrete peaks at even numbers. The maximum depth is around 10 levels, with the highest frequency occurring at depth 2. The overlaid line chart visualizes the overall declining trend as depth increases, suggesting that deep nested conversations are relatively rare.
+
+The score distribution appears extremely concentrated around a single value, with what looks like a single vertical line. This suggests that most posts or comments have very similar scores falling in the range of 0 to 100, making it difficult to discern any meaningful patterns in the raw distribution.
+
 ![](../../image/logged_score_distribution.png)
 
+By applying a logarithmic transformation to the text length data, a much more informative distribution is formed. The log-transformed data approximates a normal distribution with a slight right skew, centered around 4-5 on the log scale. This transformation reveals patterns that were obscured in the original highly-skewed distribution, making it much easier to analyze the central tendency and spread of text lengths.
+
+The comparison between the original and log-transformed text length distributions is particularly noteworthy as it demonstrates the power of logarithmic transformation in dealing with highly skewed data. While the original distribution was difficult to interpret due to extreme skewness, the log transformation reveals a more normal-like distribution that better shows the underlying patterns in the data and makes statistical analysis more meaningful.
+
 ![](../../image/top_10_subreddits.png)
+
+The horizontal bar chart of top 10 subreddits shows that "news" has the highest frequency, followed closely by "changemyview" and "worldnews". The distribution shows a clear hierarchy among political and news-related subreddits, with "Libertarian" having the lowest frequency among the top 10.
 
 # Bivariate Analysis
 
 ![](../../image/text_lenth_vs_score.png)
 
+The scatter plot reveals an interesting pattern where higher scores are primarily associated with shorter texts, suggesting that there may be a negative correlation between text length and score, as the highest scoring posts or comments having relatively short lengths.
+
+Similarly, the length distribution plot shows a sparse distribution for longer text lengths, reinforcing the observation that shorter texts are more prevalent and potentially more impactful.
+
 ![](../../image/correlation_matrix_eda.png)
+
+The correlation matrix shows very weak relationships between all three variables (text length, score, and depth). The correlations between each two of them are close to zero, indicating these variables are largely independent of each other.
 
 # Conclusion
 
-## **Key Insights**
+## Key EDA Findings
 
--   **Summary of EDA Findings**:
--   Highlight the main takeaways from the EDA process (key trends, patterns, data quality issues).
--   **Implications for Modeling**:
--   Discuss how your EDA informs the next steps in your project (e.g., feature selection, data transformations).
--   Outline any further data cleaning or preparation required before moving into modeling.
+1.  **Data Distribution Patterns**
+
+    -   **Text Length**:
+
+        -   Highly right-skewed, with most content under 1000 characters.
+
+        -   Logarithmic transformation reveals an approximately normal distribution.
+
+    -   **Comment Depth**:
+
+        -   Discrete pattern with peaks at even numbers, indicating structured conversation patterns.
+
+    -   **Score**:
+
+        -   Highly concentrated, suggesting a need for normalization.
+
+2.  **Community Dynamics**
+
+    -   **Subreddit Dominance**:
+
+        -   News and political discussion subreddits dominate.
+
+        -   Debate-focused subreddits (e.g., *changemyview*, *AskTrumpSupporters*, *AskConservatives*) indicate a significant presence of discussion-based content.
+
+3.  **Variable Relationships**
+
+    -   **Correlations**:
+
+        -   Weak correlations between text length, score, and depth (all near zero).
+
+        -   No strong linear relationships between variables.
+
+    -   **Score and Text Length**:
+
+        -   Higher scores favor shorter texts, though the relationship is weak.
+
+## Implications for Modeling
+
+**Data Transformations Needed**
+
+-   Apply log transformation to text length for modeling.
+
+-   Normalize or bin the score variable due to its concentrated distribution.
+
+-   Treat comment depth as a categorical variable rather than continuous.
+
+**Modeling Approach Considerations**
+
+-   Linear models may be suboptimal given weak variable correlations.
+
+-   Include subreddit as a categorical feature, as it shows clear influence.
+
+-   Consider separate models for different subreddit types due to distinct characteristics.
+
+-   Explore probabilistic modeling approaches, leveraging the log-normal distribution of text length.

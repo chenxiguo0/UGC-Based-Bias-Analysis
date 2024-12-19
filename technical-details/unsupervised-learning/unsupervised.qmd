@@ -6,34 +6,50 @@ output: html_document
 
 # Overview
 
-Unsupervised learning is a type of machine learning that involves training a model without labeled data, meaning the algorithm attempts to identify patterns or structures from the input data by itself. The goal is to explore the underlying structure of the data without predefined labels or outcomes.
+Unsupervised learning is a type of machine learning that involves training a model without labeled data. The goal is to explore the underlying structure of the data by identifying patterns or clusters without predefined categories.
 
-In this project, unsupervised learning including NMF (Non-negative Matrix Factorization) and DBSCAN (Density-Based Spatial Clustering of Applications with Noise) were used to group similar items without predefined labels, automatically discovering hidden topics and categorizing text data into clusters based on similarities, without prior knowledge of categories.
+In this project, **NMF (Non-negative Matrix Factorization)** and **DBSCAN (Density-Based Spatial Clustering of Applications with Noise)** were used to analyze and cluster texts of posts and comments into meaningful groups.
+
+# Dimensionality Reduction
 
 1.  **PCA (Principal Component Analysis):**
-    -   Apply PCA to your dataset.
-    -   Determine the optimal number of principal components.
-    -   Visualize the reduced-dimensional data.
-    -   Analyze and interpret the results.
-2.  **t-SNE (t-distributed Stochastic Neighbor Embedding):**
-    -   Implement t-SNE on the same dataset.
-    -   Experiment with different perplexity values.
-    -   Visualize the t-SNE output to reveal patterns and clusters.
-    -   Compare the results of t-SNE with those from PCA.
-3.  **Evaluation and Comparison:**
-    -   Evaluate the effectiveness of PCA and t-SNE in preserving data structure.
-    -   Compare the visualization capabilities of both techniques.
-    -   Discuss the trade-offs and scenarios where one technique may perform better than the other.
 
-# NMF
+    -   **Process**:
+
+        -   Applied PCA to the dataset to reduce dimensions while preserving variance.
+
+        -   Determined that 263 components were needed to retain 80% of the variance, suggesting that the data has high dimensionality.
+
+    -   **Conclusion**: Although PCA reduces dimensions, the number of components required suggests that the data remains complex and sparse.
+
+    ![](../../image/pca_vr_nc.png)
+
+    This plot illustrates the results of PCA. The x-axis represents the number of principal components, while the y-axis shows the cumulative explained variance ratio. Notably, 263 principal components are required to explain over 80% of the variance, indicating the high-dimensional complexity of the data.
+
+2.  **t-SNE (t-distributed Stochastic Neighbor Embedding):**
+
+    -   **Process**:
+
+        -   t-SNE was implemented with perplexities of 5, 30, and 50.
+
+        -   Each perplexity parameter controls how local or global the clustering visualization appears.
+
+    -   **Comparison**:
+
+        -   t-SNE provided a visually appealing reduction of the data but did not reveal well-separated clusters.
+
+        -   Compared to PCA, t-SNE offers better visualization but no clear interpretable patterns emerged. ![](../../image/t-SNE_perplexity.png)
+
+    These three subplots shows the t-SNE visualization with different perplexity values (5, 30, and 50). As the perplexity value increases, the data points transition from a more scattered local structure to a smoother global structure.
+
+# NMF (Non-negative Matrix Factorization)
 
 NMF is a factorization technique that decomposes a matrix (in this case, the term-document matrix) into two non-negative matrices: one representing topics and the other representing words. NMF is particularly useful for discovering parts-based representations in data, making it suitable for text data where topics can be described by sets of relevant words.
 
-#### Reasons for Choosing NMF:
+## **Reasons for Choosing NMF**
 
--   **Topic interpretability:** NMF generates topics that are easy to interpret as a set of related words.
-
--   **Sparsity:** NMF’s non-negative constraints ensure that the factorization results in interpretable and additive topic compositions, which is important for identifying meaningful topics.
+-   **Topic interpretability**: NMF provides topics described by sets of semantically meaningful words.
+-   **Sparsity**: Non-negative constraints ensure additivity, yielding easily interpretable results.
 
 ## Process
 
@@ -43,39 +59,31 @@ NMF is a factorization technique that decomposes a matrix (in this case, the ter
 
 3.  **Topic Modeling with NMF:** The NMF model is trained with 5 topics, using the TF-IDF features. The model identifies the topics by associating high-weighted words with each topic.
 
-4.  **Topic Assignment:** The highest topic probabilities for each document are assigned, and a topic label is associated with each submission.
+4.  **Topic Assignment:** The highest topic probabilities for each document are assigned, and the comments' labels are associated with the posts they are from.
 
 ## **Results**
 
-**NMF Topics:**
+NMF identified the following 5 relatively distinct topics:
 
--   **Topic 0**: say, abortion, feel, get, want, right, make, woman, even, life
+| Topic | Top Words                                             | Simplified Theme            |
+|-------|-------------------------------------------------------|-----------------------------|
+| 0     | challenge, abortion, daily, democracy, cover, attack  | Abortion and Women’s Rights |
+| 1     | abortion, attack, agree, bodily, blame, counter       | Abortion Debate             |
+| 2     | counter, body, bodily, attack, democracy, belief      | Body and Beliefs            |
+| 3     | bodily, body, donate, believe, democracy, border      | Body and Democracy          |
+| 4     | birth, assume, care, background check, attack, cancel | Birth and Background Checks |
 
--   **Topic 1**: gun, rifle, reddit, gun owner, owner, assault, assault rifle, law, health, couple
+![](../../image/topics_visualized_pca_tsne.png)
 
--   **Topic 2**: tax, pay, pay tax, work, income, system, low, call, federal, amount
+The first subplot shows the distribution of different topics (represented by colors) in the PCA-reduced space. A certain degree of overlap between topics is observed, suggesting that some texts may involve multiple themes simultaneously.
 
--   **Topic 3**: climate, change, climate change, call, point, news, article, insurance, meat, help
-
--   **Topic 4**: vote, election, conservative, end, communist, worker, last, voting, socialist, democratic
-
-**Manually Simplified Topics:**
-
--   **Topic 0**: Abortion and Women’s Rights
-
--   **Topic 1**: Guns
-
--   **Topic 2**: Tax
-
--   **Topic 3**: Climate
-
--   **Topic 4**: Politics
+This second subplot displays the distribution of different topics (represented by colors) in the t-SNE-reduced space. The results are similar to those observed in the PCA space, reflecting the interconnected nature of the topics.
 
 # DBSCAN
 
 DBSCAN is a density-based clustering algorithm that groups together closely packed points and marks isolated points as noise. Unlike other clustering algorithms, DBSCAN does not require the number of clusters to be specified in advance.
 
-#### Reasons for Choosing DBSCAN:
+## Reasons for Choosing DBSCAN
 
 -   **Noise Handling:** DBSCAN can handle noisy data and outliers effectively.
 
@@ -83,41 +91,42 @@ DBSCAN is a density-based clustering algorithm that groups together closely pack
 
 ## Process
 
-1.  **TF-IDF Vectorization:** The text data is transformed into TF-IDF vectors, similar to the NMF approach.
+1.  **TF-IDF Vectorization:** The text data is transformed into TF-IDF vectors, same as the NMF approach.
 
 2.  **Standardization:** The TF-IDF vectors are standardized (scaled) before applying DBSCAN to ensure that all features are treated equally.
 
-3.  **Clustering with DBSCAN:** DBSCAN is applied to the scaled TF-IDF vectors with an `eps` value of 0.5 and a minimum sample count of 5. The algorithm attempts to cluster the data and identifies outliers as noise.
+3.  **Clustering with DBSCAN:** DBSCAN is applied to the scaled TF-IDF vectors with `eps=0.5` and `min_samples=5.`
 
-4.  **Validation with k-distance Plot:** The k-distance plot is generated to analyze the density distribution, showing that most points are equidistant, which may indicate poor clustering performance.
+4.  **Validation with k-distance Plot:** The k-distance plot is generated to analyze the density distribution.
 
 ## **Results**
 
--   **1 Cluster Identified:** DBSCAN finds only 1 cluster, with 648 samples marked as noise (-1) and 29 samples assigned to cluster 0.
--   **K-Distance Plot:** The plot shows relatively uniform distribution with steep rise at the end, indicating most points are at similar distances, which suggests that the density assumption of DBSCAN may not fit the data well.
+DBSCAN finds only 1 cluster, with 672 samples marked as noise (-1) and 5 sample points assigned to cluster 0.
+
+| NMF Topic | Cluster -1 (Noise) | Cluster 0 |
+|-----------|--------------------|-----------|
+| 0         | 32                 | 0         |
+| 1         | 65                 | 0         |
+| 2         | 209                | 5         |
+| 3         | 210                | 0         |
+| 4         | 156                | 0         |
+
+![This clustering results plot presents the findings of DBSCAN clustering in the t-SNE-reduced space. DBSCAN identified one dominant cluster, indicating that most data points are relatively concentrated within the feature space.](../../image/clustering_visualized.png)
 
 ![](../../image/k_distance.png)
+
+The k-distance plot shows relatively uniform distribution with steep rise at the end, indicating most points are at similar distances, which suggests that the density assumption of DBSCAN may not fit the data well.
 
 # Conclusion
 
 ## Models Comparison
 
-| dbscan_cluster | -1  | 0   |
-|:---------------|:----|:----|
-| nmf_topic      |     |     |
-| 0              | 427 | 29  |
-| 1              | 61  | 0   |
-| 2              | 45  | 0   |
-| 3              | 52  | 0   |
-| 4              | 63  | 0   |
-
-| Metric                    | NMF                                                   | DBSCAN                                              |
-|-------------------|------------------------------|--------------------------------|
-| Number of Clusters/Topics | 5 distinct topics                                     | 1 cluster and 648 noise points                      |
-| Topic Coherence           | High semantic coherence (political themes)            | Low coherence (mainly noise, few points in cluster) |
-| Model Effectiveness       | Successful in identifying meaningful topics           | Failed to capture distinct topics                   |
-| Cluster Interpretation    | Clear, interpretable topics (e.g., abortion, climate) | No distinct topics, mostly noise                    |
-| k-distance Plot Analysis  | Not applicable (used for DBSCAN only)                 | Steep rise, indicating uniformity in distances      |
+| Metric                      | NMF                                                              | DBSCAN                                              |
+|-----------------------------|------------------------------------------------------------------|-----------------------------------------------------|
+| Number of Topics (Clusters) | 5 topics                                                         | 1 cluster and 672 noise points                      |
+| Topic Coherence             | High semantic coherence (political themes)                       | Low coherence (mainly noise, few points in cluster) |
+| Topic Interpretation        | Relatively clear, interpretable topics (e.g., abortion, climate) | No distinct topics, mostly noise                    |
+| k-distance Plot Analysis    | Not applicable (used for DBSCAN only)                            | Steep rise, indicating uniformity in distances      |
 
 1.  **NMF performed better because:**
 
@@ -135,10 +144,22 @@ DBSCAN is a density-based clustering algorithm that groups together closely pack
 
     -   k-distance plot shows too uniform distribution, unsuitable for density-based clustering
 
-## Summary
+## Discussion
 
--   **NMF Performance:** NMF successfully extracted 5 distinct and interpretable topics related to political themes such as abortion, guns, taxes, climate change, and politics. The topics show semantic coherence and clear distinction.
+A subsequent analysis was conducted using the same methodology without applying dimensionality reduction, which reinforced the initial conclusion that NMF outperforms DBSCAN. The consistent uniformity observed in the DBSCAN clustering results indicates that the text data may contain overlapping topics or that the density-based assumptions of the algorithm are not well-suited for capturing the diverse political themes present in the dataset.
 
--   **DBSCAN Performance:** DBSCAN performed poorly by grouping almost all data points as noise and failing to identify multiple clusters. The k-distance plot showed a uniform distribution of distances, which made it unsuitable for identifying clear text clusters in this case.
+Superisingly, applying NMF directly to the original data without dimensionality reduction yielded even better performance compared to the approach with dimensionality reduction. NMF successfully identified five significantly more distinctive topic groups, which can be manually categorized into 5 clear and interpretable themes. Therefore, in this project, clustering will proceed directly on the original data to more effectively support the development of subsequent supervised learning models.
 
-Thus, **NMF** outperformed **DBSCAN** in terms of topic identification in this task, with DBSCAN unable to effectively capture the varying political themes in the data. The uniformity observed in the DBSCAN clustering suggests that the text data may have overlapping topics or that the density-based assumption of the algorithm is not suitable for this task.
+| NMF Topic | Top Words Group                                                                           | Simplified Topic            |
+|-----------|-------------------------------------------------------------------------------------------|-----------------------------|
+| 0         | say, abortion, feel, get, want, right, make, woman, even, life                            | Abortion and Women’s Rights |
+| 1         | gun, rifle, reddit, gun owner, owner, assault, assault rifle, law, health, couple         | Guns                        |
+| 2         | tax, pay, pay tax, work, income, system, low, call, federal, amount                       | Tax                         |
+| 3         | climate, change, climate change, call, point, news, article, insurance, meat, help        | Climate                     |
+| 4         | vote, election, conservative, end, communist, worker, last, voting, socialist, democratic | Politics                    |
+
+## **Visualization**
+
+![](../../image/topics.png)
+
+The NMF results (without dimensionality reduction) reveal that 69.3% of the topics focus on abortion and women's rights, making it the the most frequently discussed theme and significantly outnumbering other topics. In contrast, discussions about taxes are the least represented, comprising only 5.1% of the topics. The remaining three topics—climate change, gun control, and politics—account for a moderate share, ranging between 7% and 10% each.

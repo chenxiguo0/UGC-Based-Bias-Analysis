@@ -2,21 +2,55 @@
 
 ## Key Insights for Test Set
 
-1.  **Total Posts and Comments:**
+1.  **Collected Dataset Sample:**
 
-    The collected data contains 59,724 entries, 59,032 comments, and 692 posts categorized as "hot" (347) or "controversial" (345).
+    | subreddit   | id      | type           | depth | score | time   | text                                                                                                                                                                                                                                                                                                              |
+    |-------------|---------|----------------|-------|-------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+    | Libertarian | 1hf706u | submission_hot | 0     | 100   | Dec-24 | The road to serfdom New to libertarian economics but my dad just let me borrow one of his books to get some knowledge. Anybody read this and is it a good place to get started? If so what would be a good book to read next?                                                                                     |
+    | Libertarian | m29svuv | comment        | 1     | 1     | Dec-24 | Anything by Fredrich Bastiat is also good but he thinks the State can actually be made to function for the people he was so close to figuring out you can't tame the devil.                                                                                                                                       |
+    | Libertarian | m2a5co6 | comment        | 2     | 1     | Dec-24 | Libertarians aren't exclusively anarchists.                                                                                                                                                                                                                                                                       |
+    | Libertarian | m2a694w | comment        | 3     | 1     | Dec-24 | "True but like socialists and communists always saying they can fix their ideologies or that wasn't real X others eventually figure out that government can not be fixed no matter what you do. Just like Gun Free Zone signs do not stop would be mass murderers Constitutions do not stop criminals in office." |
+    | Libertarian | m2a5co6 | comment        | 1     | 1     | Dec-24 | Libertarians aren't exclusively anarchists.                                                                                                                                                                                                                                                                       |
 
-2.  **Comment Depth:**
+2.  **Total Posts and Comments:**
+
+    -   The collected dataset contains 59,724 entries, consisting of:
+
+        -   59,032 comments
+
+        -   692 posts, categorized as:
+
+            -   Hot: 347
+
+            -   Controversial: 345
+
+    -   The dataset includes 7 attributes:
+
+        -   **subreddit**: The subreddit from which the post or comment was collected.
+
+        -   **id**: The unique ID number associated with each post or comment.
+
+        -   **type**: Indicates whether the text is a post or a comment.
+
+        -   **depth**: Represents the structural level where the text is located.
+
+        -   **score**: Popularity of the text (calculated as upvotes minus downvotes).
+
+        -   **time**: The year and month when the text was published.
+
+        -   **text**: The exact raw text collected.
+
+3.  **Comment Depth:**
 
     The comment depth ranges from 0 to 10, where 0 represents the post itself, 1 refers to first-level comments (direct comments on the post), 2 represents second-level comments (replies to the first-level comments), 3 indicates third-level comments (replies to the second-level comments), and so on. The majority of comments, approximately 20,000, are concentrated at depths 2 to 4.
 
-3.  **Score Range**:
+4.  **Score Range**:
 
-    The score ranges from -177 to 57,021, with a mean of 35.95. This wide range suggests that while most comments have low scores, some posts and comments have garnered significant attention or upvotes. While most comments and submissions have low scores (below 10), there are a few with exceptionally high scores, which likely indicates viral or highly upvoted content.
+    The score ranges from -177 to 57,021, with a mean of 35.95. This wide range suggests that while most comments have low scores, some posts and comments have garnered significant attention or upvotes. While most comments and submissions have low scores (below 10), there are a few with exceptionally high scores, which indicates viral or highly upvoted content.
 
 ## Data Resources for Training Sets
 
-For training sets, this project utilized two labelled datasets from Kaggle.
+For training sets, this project utilized two labeled datasets from Kaggle.
 
 -   training set for Decision Tree binary classification (liberal or conservative)
 

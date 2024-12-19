@@ -4,58 +4,62 @@ bibliography: assets/references.bib
 output: html_document
 ---
 
-# Project Name
+# Online Bias: Are Liberal or Conservative Voices More Welcome?
 
 ## Introduction
 
-This is the landing page for your project. Content from this page can be reused in sections of your final report.
+“You can go to hell along with your conservative soul!”
 
-> Doing a project that you think will change the world, only to find at the end that a very similar version of your project was already done in the 1980's, isn't a great use of time.
+I was shocked when I logged into a popular short-video platform in the U.S. and came across this reply to a mild (in my opinion) conservative comment. Having experienced online discourse across different cultural contexts, this encounter highlighted a striking contrast for me. I realized that I rarely see such harsh criticism of conservatives on Chinese online platforms, where the online environment seems more accepting and much friendlier of conservative speech.
+
+This contrast made me wonder whether bias exists in online discourse and whether different biases emerge in different environments. From my personal observation, bias does seem to exist—in China's more conservative internet environment, I’ve noticed more unfriendly attacks on liberal views, while in the U.S.'s more liberal-leaning internet, I’ve observed more toxic criticism of conservative opinions. However, because platform algorithms often create "information cocoon" that tailor the content people see, individual experiences may not always reflect the larger picture. The question of whether bias truly exists is uncertain to decide based on individual subjective experiences.
+
+This discovery deeply motivated me to investigate further. I decided to apply a data science approach to validate my observations, analyzing user interactions on Reddit as the subject of my study. Specifically, I am exploring the question of which political viewpoint—liberal or conservative—faces more hostility online. By addressing this issue, we can better understand the potential biases present in the online speech environment. This could help break down information bubbles, embrace richer perspectives of viewpoints, and ultimately promote more diverse and friendly dialogues. Regardless of political stance, everyone deserves the right to express their views in a supportive environment.
 
 ## Data Science Questions
 
--   Summarize your topic, its significance, related work, and the questions you plan to explore.
--   Draft an introduction with at least **5 research questions**. These may evolve as your project progresses, since data science is an iterative process.
--   Include your data science questions on this page.
+### **Project Summary**
 
-## About Me
+This project investigates whether online environments are more accommodating to liberal or conservative viewpoints by analyzing Reddit posts and comments. It predicts toxicity levels and evaluates the relative hostility directed toward opposing political perspectives.
 
-This is the landing page for your project. Content from this page can be reused in sections of your final report.
+The analysis combines unsupervised learning to cluster discussions into topics and supervised learning to classify texts' political leanings and assess toxicity levels. It aims to determine whether toxicity systematically differs by political orientation.
 
--   Develop your "About You" page. You can reuse content from previous assignments.
--   You can include the content here or on a separate page.
-    -   It’s recommended to create one "About You" page for all DSAN projects, with links to your various class projects.
+The goal is to explore potential biases in online political discussions and promote a more inclusive and respectful environment for all viewpoints.
+
+### Related Work
+
+Previous studies have explored the impact of political affiliation on social media interactions, often highlighting the prevalence of online toxicity. However, fewer have specifically compared the toxicity between liberal and conservative viewpoints or have explored the level of intolerance in online spaces toward different political leanings. This project builds upon existing text analysis techniques, including non-negative matrix factorization (NMF), decision trees, and random forests, to add a new perspective on political toxicity in online communities.
+
+### Research Questions
+
+-   Does the level of toxicity differ between liberal and conservative posts/comments on Reddit?
+
+-   How can a ML model effectively identify and categorize topics in online discussions?
+
+-   How can a ML model precisely predict the political leaning of a post based on its content?
+
+-   How can a ML model accurately quantify and measure the toxicity level in texts?
+
+-   What factors contribute to variations in the distribution of politics-related toxic discussions?
 
 ## Literature Review
 
-Once you decide on a topic, you should `ALWAYS START WITH A LITERATURE REVIEW`, this is particularly important for academic projects.
+The rise of social media platforms has significantly transformed political discourse, providing spaces for both constructive debate and the proliferation of toxic language. Understanding the dynamics of political expression and the prevalence of toxicity within these platforms is crucial for assessing the inclusivity of online environments toward different political ideologies.
 
-The literature review is the most important part of most projects.
+Research by Kim et al. (2019)[@kim2019abusive] examined the prevalence of abusive language in political discussions on Twitter, highlighting that a substantial portion of negative tweets directed at politicians contained insulting language, with percentages ranging from 33.33% to 48.6%. The study also emphasized the use of gendered terms and references to appearance in abusive tweets, underscoring the nuanced nature of toxicity in online political discours.
 
-It allows you to;
+Furthermore, studies have indicated that social media platforms' algorithms can influence the visibility of certain content, potentially affecting the exposure of users to diverse political viewpoints. Riemer and Peter (2023)[@riemer2023algorithm] argue that these algorithms have fundamentally reshaped the nature of free speech by determining who sees what content, thereby impacting the free exchange of ideas.
 
--   Determine what is already known and what has already been tried, so that you `don't re-invent the wheel`.
+Additionally, the phenomenon of echo chambers, where users are predominantly exposed to like-minded perspectives, has been observed to contribute to increased polarization and the amplification of toxic language. A study by the United Nations (2023)[@un2023misinformation] notes that the surge of misinformation and hate speech from the fringes to the mainstream in digital spaces has undermined the optimistic view of social media's potential to connect and engage people.
 
--   It makes you more of a subject matter expert, allowing you to `ask the right questions`, `target impactful projects`, and `communicate with other professionals`.
+This project, which involves topic modeling using Non-negative Matrix Factorization (NMF) and clustering algorithms like DBSCAN, followed by supervised learning models like Decision Tree and Random Forest to predict political leanings and toxicity levels, is well-grounded in existing research methodologies. This approach allows for the identification of distinct topics and the assessment of the relationship between political orientation and the prevalence of toxic language.
 
-In this section, please do a literature review and cite at least **3 academic publications** per group member, and include **internal academic citations**.
+By applying advanced text analysis techniques to evaluate the toxicity of political discourse on Reddit, this project has the potential to provide valuable insights into the inclusivity of online environments toward liberal and conservative viewpoints. This project could provide valuable insights into online political communication and inform strategies to promote a more inclusive and respectful digital public space.
 
-**Optional**: Consider using LLM tools to 10X your literature review, e.g. instead of focusing on 3 papers, aim for 30 or more
+## About Me
 
-By following these steps, you can 10X the efficiency of your literature review process, gaining more insights while minimizing the time spent on manual reading.
+My name is Chenxi Guo. I am a first-year DSAN student. I come from China and I finished my undergraduate school in Shanghai in June 2024, with a bachelor's in business administration.
 
-1.  **Expand Your Literature Search**\
-    Aim to gather a larger pool of papers. Use academic databases (Google Scholar, arXiv, etc.) to find relevant studies and ensure a broad scope.
+During my business studies, I came to understand that data is one of the most valuable resources in today’s world. This realization motivated me to explore data processing and learn how to draw meaningful insights from it.
 
-2.  **Skim the Abstracts**\
-    Read the abstracts of each paper to quickly understand their focus and identify those most relevant to your topic. Prioritize these papers for deeper analysis.
-
-3.  **Use LLM Tools for Summarization**\
-    Upload the selected papers to an LLM tool capable of text summarization. Have it condense the main points of each paper into a concise, manageable summary (e.g., condense hundreds of pages into a 10-page summary). Carefully review this summary to absorb the key insights.
-
-4.  **Leverage Interactive LLM Tools**\
-    Use tools like NotebookLM or other AI-based text digesters to ask specific, targeted questions about the papers:
-
-    -   Example questions:
-        -   "In the papers uploaded, did any of them explore XYZ?"
-        -   "Which paper is most closely related to the following project idea: \[explain idea\]?" These tools will help you quickly extract relevant information without re-reading entire papers.
+In my free time, I enjoy reading and watching films. I'm also passionate about music and sing as an Alto in the Georgetown University Concert Choir.

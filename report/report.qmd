@@ -4,38 +4,120 @@ bibliography: ../assets/references.bib
 output: html_document
 ---
 
-This report is designed for a **non-technical audience** (e.g., the general public, executives, marketing teams, or clients), focusing on **high-level insights**, **actionable results**, and **visualizations** to convey the impact without requiring technical knowledge. The goal is to highlight how a model affects business strategy or revenue without diving into complex methods.
+## Summary
 
-## Guidelines for Creating a Good Narrative
+This project examines whether online environments are more accommodating to liberal or conservative viewpoints by analyzing politics-related discussions on Reddit. Applying machine learning techniques, the project identified prevalent discussion topics, classified political leanings, and quantified toxicity levels. The findings offer insights into how different political perspectives are welcomed online, emphasizing the importance of fostering a more inclusive digital space.
 
--   **Clear Purpose**: Define the core message or objective early on.
--   **Know Your Audience**: Adjust language, tone, and detail based on the audience’s understanding.
--   **Strong Opening**: Start with a hook that sets context and stakes.
--   **Logical Flow**: Structure with a clear beginning, middle, and end.
--   **Key Insights**: Highlight the most important points; avoid unnecessary details or jargon.
--   **Data Support**: Use data to enhance the narrative without overwhelming.
--   **Visuals**: Incorporate charts to simplify ideas and engage the audience.
--   **Actionable Takeaways**: Conclude with recommendations or next steps.
--   **Authenticity**: Use storytelling to make the content engaging and relatable.
--   **Revise**: Edit for clarity and impact, removing unnecessary content.
+## Project Objectives and Research Questions
 
-## Report Content
+The primary objective of this study was to assess the existence of systematic biases in online environments with respect to political leanings. Specifically, the research sought to answer the key questions:
 
-These are just examples, you can use any structure that is suitable for your project.
+-   What factors contribute to toxic political discussions?
 
-### Case-1: Academic-Oriented Projects
+-   Are toxicity levels different between texts from liberal and conservative leanings?
 
--   **Introduction**: Provide an accessible overview and explain the motivation and importance of the research. *Example*: "This study explores how climate change affects local ecosystems, vital for wildlife conservation."
--   **Objective**: Clearly define the research goal and relate it to real-world challenges. *Example*: "We aim to analyze the effects of air pollution on public health in urban areas."
--   **Key Findings**: Present insights without technical terms, focusing on the impact. *Example*: "Air pollution increases the risk of respiratory diseases by 20%."
--   **Methodology Overview**: Briefly explain relevant methods. *Example*: "We analyzed air quality data from 50 cities and surveyed 10,000 residents."
--   **Visualizations**: Use simple graphs and infographics to convey findings. *Example*: A map showing pollution levels and a bar chart of health risks.
--   **Societal Implications**: Highlight the broader impact. *Example*: "This study highlights the need for better air quality policies."
--   **Call to Action**: Offer recommendations based on findings. *Example*: "We recommend city planners invest in green spaces."
--   **Conclusion**: Recap the main findings and societal impact. *Example*: "Understanding pollution's health impacts will help create healthier cities."
+By addressing these questions, the study aimed to provide actionable insights to improve the quality of online discourse and promote diversified discussions.
 
-## Final Tips
+## Methodology
 
--   **Simplicity**: Avoid jargon; focus on business-relevant insights.
--   **Visual Focus**: Prioritize charts and graphs over dense text.
--   **Emphasize Impact**: Always link data insights to business outcomes.
+### Data Collection and Preprocessing
+
+-   **Dataset**: Collected 59,724 entries (59,032 comments and 692 posts) from Reddit.
+-   **Text Cleaning**: Removed noise, standardized text, and prepared data for analysis.
+-   **Text Representation**: Applied TF-IDF vectorization to represent text data numerically.
+
+### Analysis Framework
+
+The project used three machine learning approaches:
+
+1.  **Topic Identification (NMF vs. DBSCAN)**
+    -   Non-Negative Matrix Factorization (NMF) identified five distinct topics:
+        -   Abortion/Women's Rights (69.3%)
+        -   Guns (8.9%)
+        -   Climate (7.8%)
+        -   Politics (8.9%)
+        -   Tax (5.1%)
+    -   DBSCAN proved less effective, failing to cluster meaningful groups.
+2.  **Political Leaning Classification (Decision Tree)**
+    -   Achieved 78.21% training accuracy and 65.40% cross-validation accuracy.
+    -   Recall rates: 98% for liberal content, 48% for conservative content.
+3.  **Toxicity Prediction (Random Forest)**
+    -   Regression model achieved an $R^2$ value of 0.9088 and a low mean squared error (MSE) of 0.0029.
+
+## Key Findings and Interpretation
+
+| Political Leaning | toxicity Mean | toxicity Std | toxicity Max | length Mean | length Std | score Mean |
+|-----------|-----------|-----------|-----------|-----------|-----------|-----------|
+| Conservative      | 0.107         | 0.153        | 0.851        | 291.410     | 358.168    | 16.531     |
+| Liberal           | 0.118         | 0.170        | 0.936        | 131.705     | 213.552    | 37.049     |
+
+### Toxicity Differences Between Political Orientations
+
+-   **Conservative texts**:
+    -   Mean toxicity: 0.107
+    -   Standard deviation: 0.153
+    -   Maximum toxicity: 0.851
+-   **Liberal texts**:
+    -   Mean toxicity: 0.118
+    -   Standard deviation: 0.170
+    -   Maximum toxicity: 0.936
+
+The project found that conservative posts had a mean toxicity score of 0.107 (SD = 0.153), while liberal posts exhibited a slightly higher mean toxicity of 0.118 (SD = 0.170). Maximum toxicity values were 0.851 and 0.936 for conservative and liberal posts, respectively. While liberal posts showed slightly higher average toxicity, the difference (+0.011) was limited, indicating no significant bias. The greater variability in liberal posts could be attributed to differences in sample size or community dynamics.
+
+### Topic Identification in Online Discussions
+
+NMF analysis revealed that abortion and women’s rights dominated online discussions, accounting for 69.3% of identified topics. Other prevalent themes included guns (8.9%), climate change (7.8%), politics (8.9%), and taxation (5.1%). And the DBSCAN proved less effective, failing to cluster meaningful groups.
+
+NMF's success highlights the thematic clustering of political discussions. The prominence of abortion-related topics reflects their heightened relevance during data collection.
+
+### Political Leaning Prediction
+
+The Decision Tree model achieved a training accuracy of 78.21% and a cross-validation accuracy of 65.40%. Recall rates were 98% for liberal content but only 48% for conservative content. This disparity highlights the challenges posed by data imbalance (95.7% liberal vs. 4.3% conservative) and the distinct linguistic patterns observed in liberal posts. Greater variability in conservative expression further contributed to this outcome.
+
+### Toxicity Quantification
+
+The Random Forest regression model demonstrated strong predictive performance, with an R2R^2R2 value of 0.9088 and a mean squared error (MSE) of 0.0029. These results confirm that toxicity features are both identifiable and quantifiable, validating the robustness of the analysis framework.
+
+### Factors Influencing Toxic Discussions
+
+1.  **Text Length**:
+    -   Negative correlation with toxicity.
+    -   Conservative posts were longer (291.4 words) than liberal posts (131.7 words).
+2.  **Topic Influence**:
+    -   Highest toxicity: Abortion/Women's Rights.
+    -   Lowest toxicity: Tax-related discussions.
+3.  **Temporal Patterns**:
+    -   Increased volatility post-2010, with spikes during major political events.
+
+Several factors were found to shape toxicity in political discourse. Text length exhibited a negative correlation with toxicity, with conservative posts being significantly longer (mean: 291.4 words) than liberal posts (mean: 131.7 words). Topic sensitivity also played a critical role, with abortion-related discussions exhibiting the highest toxicity levels and tax-related topics the lowest. Temporal patterns revealed increased volatility in toxicity post-2010, with notable spikes during major political events.
+
+## Conclusions and Implications
+
+### Key Insights
+
+1.  Similar toxicity levels suggest no systematic bias against either political orientation.
+2.  Topics and context matter more than political leanings in predicting toxicity.
+3.  Text length and style significantly influence discourse quality.
+
+### Recommendations
+
+To foster a more inclusive digital space, the following recommendations are proposed:
+
+1.  **Platform Design**: Moderation systems should be tailored to specific topics, with tools to encourage longer, more thoughtful responses and detect early signs of toxicity.
+
+2.  **Research Methodology**: Address data imbalances in future studies and incorporate longitudinal analyses to understand toxicity trends over time.
+
+3.  **Community Guidelines**: Platforms should promote balanced representation of diverse political viewpoints and encourage substantive, respectful dialogue.
+
+### Limitations and Future Research
+
+1.  **Data Limitations**:
+    -   Platform-specific behavior patterns.
+    -   Limited temporal scope.
+    -   Imbalanced political representation.
+2.  **Future Opportunities**:
+    -   Cross-platform analysis.
+    -   Longitudinal studies of toxicity patterns.
+    -   Examination of moderation effects.
+
+The analysis is constrained by platform-specific behavior patterns, a limited temporal scope, and an imbalance in political representation. By unraveling the complexities of online political discourse, this research underscores the importance of fostering healthier, more inclusive digital environments. And future research should explore cross-platform comparisons, longitudinal toxicity trends, and the effects of different moderation strategies.

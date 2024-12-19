@@ -2,42 +2,30 @@
 title: "Progress log"
 ---
 
-Use this page to track your progress and keep a log of your contributions to the project, please update this each time you work on your project, it is generally a good habit to adopt.
+This page is to track the project progress.
 
-If you are working as a team, at the end, you can duplicate the project and add it to your individual portfolio websites. If you do, you **MUST** retain attribution to your teammates. Removing attribution would constitute plagiarism.
+## Member: Chenxi Guo   
 
-## To-do
+## [About Me](../index.qmd#about-me)
 
--   [ ] Explore possible topics by brainstorming with GPT
--   [ ] write a technical methods sections for K-means
--   [ ] write a technical methods sections for PCA
+## **Weekly project contribution log:**
 
-... etc
+**W: 11-30-2024**
 
-## Member-1:
+-   [x] Started brainstorming project topics.
 
-Provide their name, a link to their "About Me" page.
+**F: 12-6-2024**
 
-Also, describe a log of their project roles.
+-   [x] Finalized the project topic and began exploring Reddit’s community structure and API usage.
 
-**Weekly project contribution log:**
+**S: 12-8-2024**
 
-**T: 10-15-2024**
+-   [x] Started data collection and cleaning.
 
--   [x] Coordinate with team member to set up weekly meeting time
+**W: 12-11-2024**
 
-**M: 10-14-2024**
+-   [x] Completed data processing, performed exploratory data analysis (EDA), and began selecting models.
 
--   [x] Do a first draft of the project landing page
+**S: 12-13-2024**
 
-## Member-2
-
-Provide their name, a link to their "About Me" page.
-
-Also, describe a log of their project roles.
-
-**Weekly project contribution log:**
-
-**W: 10-16-2024**
-
--   [x] Attend first group meeting
+-   [x] Finished running the models and started working on the website.

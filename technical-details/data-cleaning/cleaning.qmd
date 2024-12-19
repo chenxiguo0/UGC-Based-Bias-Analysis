@@ -6,7 +6,7 @@ output: html_document
 
 # Overview
 
-This section involves preprocessing Reddit data to convert it into a cleaned and structured format suitable for further analysis. Initially, the raw Reddit data, collected through the Reddit API, was in JSON format. In this stage, the JSON data was converted into a CSV file to facilitate easier manipulation and analysis. The cleaned data is processed to remove unwanted characters, irrelevant information, and noise from the text, leaving a dataset that is ready for following NLP applications.
+The data cleaning process focused on preprocessing Reddit data to transform it into a cleaned and structured format suitable for analysis. The raw data, originally collected via the Reddit API in JSON format, was first converted into a CSV file to enable easier manipulation and analysis. The preprocessing steps involved cleaning the text by removing unwanted characters, irrelevant information, and noise, resulting in a refined dataset ready for subsequent NLP applications.
 
 The cleaning goal is to ensure the text is standardized, with unnecessary elements removed, making the data more consistent and ready for model training. Methods
 
@@ -66,14 +66,14 @@ To transform and clean the raw data, the following key methods were employed:
 
 1.  **Dataset Summary:**
 
-    -   **Rows**: The cleaned dataset contains 34,351 unique rows and 6 columns.
+    -   **Rows**: The cleaned dataset contains 34,351 unique rows and 7 columns.
     -   **Numerical Variables:** The dataset includes depth and score.
     -   **Categorical Variables:** The dataset is categorized by subreddit, type (comment, hot submission, or controversial submission).
 
 2.  **Cleaned Dataset Sample:**
 
     | subreddit   | id      | type           | depth | score | time    | text                                              |
-    |----------|---------|---------|---------|---------|---------|----------------------|
+    |-------------|---------|----------------|-------|-------|---------|---------------------------------------------------|
     | Libertarian | 1hf706u | submission_hot | 0     | 100   | 2024/12 | road serfdom new libertarian economics dad let... |
     | Libertarian | m29svuv | comment        | 1     | 1     | 2024/12 | anything fredrich bastiat also good think stat... |
     | Libertarian | m2a5co6 | comment        | 2     | 1     | 2024/12 | libertarian arent exclusively anarchist           |

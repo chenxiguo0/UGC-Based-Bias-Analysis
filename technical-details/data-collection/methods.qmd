@@ -8,9 +8,6 @@ This project uses **Reddit API** with the Python library `praw` (Python Reddit A
 
 -   **Reddit API Integration**: The scraping uses Reddit API credentials (`client_id`, `client_secret`, and `user_agent`) to authenticate and access Reddit data.
 
-```{=html}
-<!-- -->
-```
 -   **Subreddit Selection**\
     Relevant subreddits are identified using a list of predefined keywords (e.g., "libertarian", "climate change", "abortion"). Subreddits are ranked by subscriber count to ensure popular and active communities are prioritized. Unrelated subreddits are filtered out manually, and a few valuable subreddits missed in the search process are added.
 
@@ -31,7 +28,7 @@ For more detailed usage of this API, please refer to the [Reddit API Documentati
 
 1.  **Keyword-Based Subreddit Search**
 
-    -   The predefined list of keywords (e.g., “libertarian”, “tax”, “racism”) is used to search for subreddits using Reddit's API.
+    -   The predefined list of keywords (e.g., "libertarian", “tax”, “racism”) is used to search for subreddits using Reddit's API.
 
     -   For each keyword, subreddits are fetched, and the top 4 based on subscriber count are selected.
 
@@ -62,4 +59,4 @@ For more detailed usage of this API, please refer to the [Reddit API Documentati
 
         -   Comment details: `comment_id`, `body`, `score`, `depth`, `num_replies`, `created_utc`.
 
-    -   Data is saved as a **JSON file** for raw text storage and a **CSV file** for structured analysis.
+    -   Data is saved as a JSON file for raw text storage and a CSV file for structured analysis.

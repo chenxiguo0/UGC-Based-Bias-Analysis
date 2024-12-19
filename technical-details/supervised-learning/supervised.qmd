@@ -8,13 +8,13 @@ output: html_document
 
 Supervised learning is a common machine learning approach where models are trained on labeled data (containing input features and target variables) to make predictions on new, unlabeled data. It works by continuously adjusting model parameters to minimize the difference between predicted results and true labels.
 
-In this project, two models were selected: a Decision Tree classifier and a Random Forest regressor. The Decision Tree predicts the political leaning of comment authors (Conservative/Liberal), while the Random Forest predicts the toxicity level of comments (continuous values from 0-1).
+In this project, **Decision Tree classifier** and **Random Forest regressor** were selected as supervising learning approach. The Decision Tree predicts the political leaning of comment authors (Conservative/Liberal), while the Random Forest predicts the toxicity level of comments (continuous values from 0-1).
 
 # Decision Tree Classification
 
 A Decision Tree is a tree-structured classification model that partitions data into different categories through a series of conditional decisions. Starting from the root node, data samples travel down branches based on feature value conditions until reaching leaf nodes that determine the classification outcome.
 
-#### Reasons for Choosing DT:
+**Reasons for Choosing DT:**
 
 -   Strong interpretability, easy to understand and visualize
 
@@ -30,19 +30,19 @@ A Decision Tree is a tree-structured classification model that partitions data i
 
 **Split Methods:**
 
--   Used **GridSearchCV** with 5-fold cross-validation for hyperparameter optimization.
+-   Used GridSearchCV with 5-fold cross-validation for hyperparameter optimization.
 
 -   Performed an additional 5-fold cross-validation on the best model for performance evaluation.
 
--   Applied to TF-IDF vectorized text data with **max_features=5000**.
+-   Applied to TF-IDF vectorized text data with max_features=5000.
 
 **Dataset Proportions:**
 
--   Both **GridSearchCV** and final cross-validation used 5-fold splits:
+-   Both GridSearchCV and final cross-validation used 5-fold splits:
 
-    -   **Training**: 80% of data.
+    -   Training: 80% of data.
 
-    -   **Testing/Validation**: 20% of data.
+    -   Testing/Validation: 20% of data.
 
 ## Model Evaluation Metrics
 
@@ -66,41 +66,47 @@ A Decision Tree is a tree-structured classification model that partitions data i
 
     -   Better performance on Liberal predictions (98% recall)
 
-2.  **Visualizations**: Include visualizations of results (e.g., ROC curves, feature importance plots). ![](../../image/decision_tree.png) ![](../../image/lean.png) ![](../../image/score_by_lean.png)
+2.  **Visualizations**: ![](../../image/decision_tree.png)
+
+The visualization shows a complex decision tree structure with multiple branches and nodes. The tree's branching pattern indicates the sequential decision-making process used to classify political leanings, with blue and brown nodes representing different classification outcomes. The depth and breadth of the tree suggest a detailed set of decision rules were learned from the data. ![](../../image/lean.png)
+
+The bar chart reveals the political lean of posts or comments is heavily liberal, with liberal posts comprising 95.7% of the data while conservative posts only account for 4.3% of posts labeled, indicating a significant imbalance in the test set. This substantial class imbalance suggests a need for careful consideration in model evaluation and potential balancing techniques during training.
+
+![](../../image/score_by_lean.png)
+
+The violin plot (with logged score) demonstrates the distribution of scores across both political leanings. Both conservative and liberal texts show similar median scores around 1-2 (values after log-transformation), but with different distribution patterns. The plot reveals long tails extending upward, indicating some highly-scored posts in both categories, with slightly more variation in Liberal posts due to their larger sample size.
 
 # Random Forest Regression
 
-## Overview
-
 Random Forest is an ensemble learning method composed of multiple decision trees. Each tree is trained on randomly sampled data and features, with final predictions made through averaging or voting mechanisms.
 
-#### Reasons for Choosing RF:
+**Reasons for Choosing RF:**
 
 -   Strong generalization capability
 
 -   Resistant to overfitting
 
--   Can handle high-dimensional data
+-   Good robustness against noise
 
 -   Suitable for continuous target variables
 
--   Good robustness against noise
+-   Appropriate for dataset with non-linear relationships
 
 ## Training and Testing Strategy
 
 **Split Methods:**
 
--   Used **GridSearchCV** with 3-fold cross-validation for hyperparameter tuning.
+-   Used GridSearchCV with 3-fold cross-validation for hyperparameter tuning.
 
--   Implemented **5-fold cross-validation** with **KFold** for final model evaluation.
+-   Implemented 5-fold cross-validation with KFold for final model evaluation.
 
 -   Both methods applied to TF-IDF vectorized, cleaned data.
 
 **Dataset Proportions:**
 
--   **GridSearchCV**: 67% training, 33% validation in each fold.
+-   GridSearchCV: 67% training, 33% validation in each fold.
 
--   **Final KFold**: 80% training, 20% testing in each fold.
+-   Final KFold: 80% training, 20% testing in each fold.
 
 -   Random shuffling enabled (**random_state=5000**) for reproducibility.
 
@@ -114,78 +120,125 @@ Random Forest is an ensemble learning method composed of multiple decision trees
 | R-squared (R²)                 | 0.9088 |
 | Explained Variance Score       | 0.9089 |
 
--   **MSE** and **RMSE** indicate low prediction errors.
+-   MSE and RMSE indicate low prediction errors.
 
--   **MAE** shows small average deviations between predictions and actual values.
+-   MAE shows small average deviations between predictions and actual values.
 
--   **R²** and **Explained Variance Score** suggest the model explains over 90% of the variance in the data.
+-   R² and Explained Variance Score suggest the model explains over 90% of the variance in the data.
 
 ![](../../image/pairplot.png)
 
+The scatter plot reveals a strong correlation between actual and predicted values, with points closely aligning along the diagonal (R-squared: 0.9088). While there is some scatter, particularly in the mid-range values, the overall prediction accuracy is high and the model performs well, as reflected by the low MSE values (Training: 0.0029, Cross-validation: 0.0195).
+
 ## Results
 
--   Best parameters: n_estimators=500, max_features='sqrt'
+1.  **Model Performance Summary**:
 
--   Cross-validation MSE: 0.0195
+    -   Best parameters: n_estimators=500, max_features='sqrt'
 
--   Training set MSE: 0.0029
+    -   Cross-validation MSE: 0.0195
 
--   R-squared score: 0.9088
+    -   Training set MSE: 0.0029
+
+    -   R-squared score: 0.9088
+
+2.  **Visualization:**
+
+![](../../image/toxicity.png)
+
+The histogram shows a right-skewed distribution of toxicity values, with the majority of comments having low toxicity scores (0.0-0.2). The long right tail indicates fewer instances of highly toxic comments, suggesting that extreme toxicity is relatively rare in the dataset.
+
+# Conclusion
+
+## **Visualization**
+
+![](../../image/correlation_matrix.png) The heatmap reveals weak correlations between variables (depth, score, rf_toxicity, text_length). Most correlation coefficients are near zero (-0.07 to 0.03), indicating that these features are largely independent of each other. This suggests that toxicity prediction may benefit from considering multiple independent features.![](../../image/toxicity_by_topics.png) The box plots compare toxicity value across different topics (abortion and women's rights, tax, guns, politics, climate). Abortion-related discussions show the highest median toxicity and largest spread, while tax-related discussions demonstrate the lowest median toxicity. This indicates significant topic-specific variations in the level of discourse toxicity.
+
+![](../../image/toxicity_by_lean.png) The box plot (outliners processed) comparison shows similar toxicity distributions between conservative and liberal posts, with slightly higher median toxicity in Liberal posts. However, the difference is limited, suggesting political leaning alone may be a suboptimal predictor of comment toxicity.
+
+![](../../image/toxicity_by_lean_topics.png)
+
+The violin plots provide a detailed view of toxicity distribution across topics and political leanings. The plots reveal subtle differences in toxicity patterns between conservative and liberal posts or comments within each topic, with some topics showing more substantial differences than others.
+
+![](../../image/text_length_toxicity_by_lean.png)The scatter plot reveals a negative correlation between text length and toxicity scores for both political leanings. Shorter texts tend to have higher toxicity scores, while longer texts generally show lower toxicity. The pattern is consistent across both conservative and liberal labeled texts.
+
+## ![](../../image/toxicity_trends.png)
+
+The toxicity trend plot illustrates the fluctuations in toxicity levels from 2008 to 2024 for both political leanings, based on daily toxicity averages. The trends show occasional spikes in toxicity for both groups. Conservative posts and comments exhibit greater volatility, likely due to a smaller sample size, while liberal data show more consistent patterns over time.
+
+-   **Overall Trend:**
+
+    -   2008-2010: Relatively stable with low toxicity levels
+
+    -   2010-2024: Increased volatility, showing more instability in political discussions
+
+-   **Significant Peaks:**
+
+    -   2012: Conservative posts hit a noticeable peak (\~0.39), likely linked to Obama's re-election
+
+    -   2016: Liberal posts reached their highest peak (\~0.35), coinciding with Trump’s election
+
+    -   2018: Conservative posts experienced multiple fluctuations (0.25-0.32), possibly related to midterm elections
+
+    -   2022-2024: Conservative posts show multiple high peaks (\~0.40), likely tied to Biden’s policies and the 2024 election
+
+-   **Volatility Characteristics:**
+
+    -   Conservatives: More volatile with frequent peaks, especially after 2020
+
+    -   Liberals: Milder fluctuations, with the curve generally staying between 0.10-0.15
+
+-   **Period Comparisons:**
+
+    -   2008-2014: Relatively calm, with minimal volatility
+
+    -   2014-2018: Transition period, with rising volatility
+
+    -   2018-2024: High volatility period, especially for conservatives
+
+## **Key Insights**
+
+**Results Overview:**
 
 | Political Leaning | toxicity Mean | toxicity Std | toxicity Max | length Mean | length Std | score Mean |
 |-------------------|---------------|--------------|--------------|-------------|------------|------------|
 | Conservative      | 0.107         | 0.153        | 0.851        | 291.410     | 358.168    | 16.531     |
 | Liberal           | 0.118         | 0.170        | 0.936        | 131.705     | 213.552    | 37.049     |
 
-![](../../image/toxicity.png) ![](../../image/correlation_matrix.png)
+1.  **Political Leaning & Toxicity:**
 
-# Conclusion
+    -   **Toxicity Scores**: Conservative labeled texts have slightly lower mean toxicity (0.107) compared to Liberal posts (0.118). However, liberal labeled texts have a higher standard deviation (0.170), indicating greater variability in toxicity levels.
 
-## **Visualization**
+    -   **Length**: Conservative texts are, on average, longer (291.4 words) than Liberal posts (131.7 words), with more variability in length (conservative: 358.2, liberal: 213.6). This may indicate that longer posts are more common in conservative discussions, potentially influencing the toxicity levels.
 
--   Present key insights using charts and visualizations (e.g., Matplotlib, Seaborn, Plotly).
--   Ensure all visualizations are well-labeled and easy to interpret.
+    -   **Maximum Toxicity**: The maximum toxicity score for both conservative and liberal texts is relatively high (0.851 and 0.936, respectively), suggesting the presence of extreme toxicity in both categories, though with a more frequent occurrence in liberal texts.
 
-![](../../image/toxicity_by_topics.png)
+    -   **Score**: Liberal texts tend to have higher average toxicity scores (37.049) compared to conservative texts (16.531), indicating more extreme values in liberal content.
 
-Topics are predominantly focused on abortion (69.3%), politics (9.7%), guns (8.3%), and climate (7.6%). The political lean of posts is heavily Liberal (95.7%), with only 4.3% of posts labeled as Conservative.
+2.  **Model Performance & Characteristics:**
 
-![](../../image/toxicity_by_lean.png) ![](../../image/toxicity_by_lean_topics.png)
+    -   **Decision Tree**: The Decision Tree classifier is effective at identifying liberal political leanings with high recall (98%) but shows some overfitting, as evidenced by the training accuracy (78.21%) being much higher than the cross-validation accuracy (65.40%).
 
-## ![](../../image/text_length_toxicity_by_lean.png) ![](../../image/toxicity_trends.png)
+    -   **Random Forest**: The Random Forest regressor shows exceptional performance with an R-squared value of 0.9088, indicating that over 90% of the variance in toxicity levels can be explained by the model. It demonstrates superior generalization compared to the Decision Tree, with minimal overfitting and high accuracy on both the training and cross-validation sets.
 
-## **Key Insights**
+3.  **Toxicity Trends Over Time**:
 
-1.  **Appropriate Model Selection:**
+    -   Toxicity levels for both political leanings have increased in volatility over time, especially post-2010. Notably, conservative texts show more frequent spikes, possibly tied to significant political events such as elections, while liberal texts show more stable trends.
 
-    -   Decision Tree is suitable for binary political leaning classification.
+    -   Major peaks in toxicity align with key political events (e.g., Obama’s re-election in 2012, Trump’s election in 2016, and midterm elections in 2018).
 
-    -   Random Forest is effective for toxicity level regression prediction.
+4.  **Topic-Specific Variations**:
 
-2.  **Prediction Performance:**
+    -   Toxicity varies significantly across topics, with abortion and women's rights related discussions showing the highest median toxicity and tax-related discussions exhibiting the lowest. This indicates that some topics foster more toxic discourse than others, regardless of political leaning.
 
-    -   Decision Tree performs better in predicting Liberal leanings.
+    -   The distribution of toxicity in both conservative and liberal posts across topics is similar, though some topics (e.g., abortion) have more substantial differences.
 
-    -   Random Forest achieves excellent regression performance (R² \> 0.9).
+5.  **Text Length and Toxicity**:
 
-3.  **Model Characteristics:**
+    -   There is a negative correlation between text length and toxicity scores, with shorter texts generally showing higher toxicity. This pattern holds for both conservative and liberal texts, which suggests that shorter, potentially more emotional or reactive posts may contribute to higher toxicity.
 
-    -   Decision Tree shows some overfitting, with training accuracy significantly higher than validation accuracy.
+6.  **Future Improvement Areas**:
 
-    -   Random Forest demonstrates superior generalization ability.
+    -   **Decision Tree**: To reduce overfitting, exploring ensemble methods like boosting or adjusting hyperparameters further could enhance performance.
 
-4.  **Room for Improvement:**
-
-    -   Explore ensemble methods to enhance Decision Tree performance.
-
-    -   Consider additional feature engineering to improve overall model performance.
-
-5.  **Final Dataset Sample:**
-
-| subreddit   | id      | type           | depth | score | time    | text                                              | nmf_topic | dt_lean      | rf_toxicity | text_length | log_text_length |
-|-------------|---------|----------------|-------|-------|---------|---------------------------------------------------|-----------|--------------|-------------|-------------|-----------------|
-| Libertarian | 1hf706u | submission_hot | 0     | 100   | 2024/12 | road serfdom new libertarian economic let borr... | abortion  | Conservative | 0.041974    | 109         | 4.700480        |
-| Libertarian | m29svuv | comment        | 1     | 1     | 2024/12 | fredrich bastiat also good actually make funct... | abortion  | Liberal      | 0.148867    | 73          | 4.304065        |
-| Libertarian | m2a5co6 | comment        | 2     | 1     | 2024/12 | libertarian exclusively anarchist                 | abortion  | Conservative | 0.088044    | 33          | 3.526361        |
-| Libertarian | m2a694w | comment        | 3     | 1     | 2024/12 | true socialist communist always say fix ideolo... | abortion  | Conservative | 0.059692    | 171         | 5.147494        |
-| Libertarian | m29bopi | comment        | 1     | 7     | 2024/12 | good favorite always recommend start revolutio... | abortion  | Liberal      | 0.013902    | 64          | 4.174387        |
+    -   **Data Imbalance**: Given the class imbalance in political leanings (with liberal posts far outweighing conservative ones), applying techniques like oversampling or class weighting during training could help improve the model's ability to predict conservative posts more effectively.
