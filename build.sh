@@ -53,7 +53,7 @@ fi
  read answer
  if [ "$answer" != "${answer#[Yy]}" ] ;then 
      rsync -alvr --delete _site/* 
-        gcxgeorg@gtown3.reclaimhosting.com:~/public_html/
+        gcxgeorg@gtown3.reclaimhosting.com:/home/gcxgeorg/public_html/
  else
      echo NOT PUSHING TO GU DOMAINS!
  fi
