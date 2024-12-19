@@ -8,7 +8,7 @@ output: html_document
 
 ## Introduction
 
-“You can go to hell along with your conservative soul!”
+> "You can go to hell along with your conservative soul!"
 
 I was shocked when I logged into a popular short-video platform in the U.S. and came across this reply to a mild (in my opinion) conservative comment. Having experienced online discourse across different cultural contexts, this encounter highlighted a striking contrast for me. I realized that I rarely see such harsh criticism of conservatives on Chinese online platforms, where the online environment seems more accepting and much friendlier of conservative speech.
 
