@@ -52,7 +52,7 @@ fi
  printf 'Would you like to push to GU domains? (y/n)? '
  read answer
  if [ "$answer" != "${answer#[Yy]}" ] ;then 
-     rsync -alvr --delete _site/* 
+     rsync -alvr --delete 5000FinalProject/*
         gcxgeorg@gtown3.reclaimhosting.com:/home/gcxgeorg/public_html/
  else
      echo NOT PUSHING TO GU DOMAINS!
