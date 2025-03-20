@@ -1,10 +1,4 @@
----
-editor: 
-  markdown: 
-    wrap: 72
----
-
-# 2024-dsan-5000-project
+# UGC-Based Political Bias Analysis in Online Discussions
 
 ## Project Overview
 
