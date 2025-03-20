@@ -92,11 +92,6 @@ Duplicate removal - NaN handling
 
 ## Resources
 
-### Project Website
-
-Please access the project website at: [Project
-Website](https://gcx1372.georgetown.domains/5000FinalProject/)
-
 ### Reddit API Usage
 
 #### Documentation
@@ -113,8 +108,3 @@ Setup](https://www.reddit.com/prefs/apps)
 
 Please access all the data used in this project at:
 [Data](https://drive.google.com/drive/folders/1zFjMN6lln-fJmuv5N1Vgwww4QgnYrgg3?usp=drive_link)
-
-### Code
-
-Please access all the code run in this project at:
-[Code](https://drive.google.com/drive/folders/1f4YfQcw_DcSVjU1bYt67iToqG7skpa4V?usp=drive_link)
